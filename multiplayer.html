@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multiplayer | AB-PROF</title>
+  <link rel="stylesheet" href="multiplayer.css" />
+</head>
+<body>
+
+  <!-- ========== NAVBAR - ONLY ONE ========== -->
+  <nav class="navbar">
+    <button class="back-btn" onclick="window.location.href='../Index.html'">⬅️ Back</button>
+    <div class="nav-logo">
+      <img src="../ab-prof-logo.svg" width="35" height="35" alt="logo"/>
+      AB-PROF
+    </div>
+    <div class="nav-right">
+      <span class="winsh-badge" id="navbarWinsh">💎 0</span>
+      <button class="profile-btn" onclick="window.location.href='../profile/profile.html'">👤</button>
+    </div>
+  </nav>
+
+  <!-- ===== LOBBY SCREEN ===== -->
+  <div class="screen" id="lobbyScreen">
+    <div class="container">
+      <div class="mp-logo">⚡</div>
+      <h1 class="mp-title">Multiplayer</h1>
+      <p class="mp-sub">Dost ko challenge karo!</p>
+
+      <div class="category-badge" id="selectedCategory">📚 Loading...</div>
+
+      <div class="card">
+        <h3>🎮 Naya Room Banao</h3>
+        <p>Room code generate karo aur dost ko bhejo</p>
+        <button class="btn-primary" id="createRoomBtn">Room Banao</button>
+      </div>
+
+      <div class="card">
+        <h3>🔗 Room Join Karo</h3>
+        <p>Dost ka room code enter karo</p>
+        <div class="input-group">
+          <input type="text" id="roomCodeInput" placeholder="Room Code likho..." maxlength="6"/>
+        </div>
+        <button class="btn-secondary" id="joinRoomBtn">Join Karo</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+    </div>
+  </div>
+
+  <!-- ===== WAITING SCREEN ===== -->
+  <div class="screen hidden" id="waitingScreen">
+    <div class="container">
+      <div class="waiting-icon">⏳</div>
+      <h2>Room Ready Hai!</h2>
+      <div class="room-code-box">
+        <p>Room Code:</p>
+        <h1 id="displayRoomCode">------</h1>
+        <button class="btn-copy" id="copyBtn">📋 Copy Karo</button>
+      </div>
+      <div class="category-badge" id="roomCategory">📚 Loading...</div>
+      <div class="players-section">
+        <div class="player-card active">
+          <div class="player-icon">👤</div>
+          <div id="player1Name">Tum</div>
+          <div class="player-status">✅ Ready</div>
+        </div>
+        <div class="vs-text">VS</div>
+        <div class="player-card waiting">
+          <div class="player-icon">👤</div>
+          <div id="player2Name">?????</div>
+          <div class="player-status" id="player2Status">⏳ Wait kar rahe hain...</div>
+        </div>
+      </div>
+      <p class="waiting-msg" id="waitingMsg">Dost ke aane ka wait karo...</p>
+      <button class="btn-danger" id="cancelBtn">❌ Cancel</button>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <div class="screen hidden" id="quizScreen">
+    <div class="container">
+      <div class="score-bar">
+        <div class="player-score">
+          <span id="p1Name">Player 1</span>
+          <span class="score" id="p1Score">0</span>
+        </div>
+        <div class="question-num" id="qNum">1/10</div>
+        <div class="player-score right">
+          <span class="score" id="p2Score">0</span>
+          <span id="p2Name">Player 2</span>
+        </div>
+      </div>
+      <div class="quiz-category" id="quizCategoryName">📚 General Knowledge</div>
+      <div class="timer-section">
+        <div class="timer-circle" id="timerCircle">
+          <span id="timerText">30</span>
+        </div>
+      </div>
+      <div class="question-box">
+        <h2 id="questionText">Loading...</h2>
+      </div>
+      <div class="options-grid" id="optionsGrid">
+        <button class="option-btn" id="opt0"></button>
+        <button class="option-btn" id="opt1"></button>
+        <button class="option-btn" id="opt2"></button>
+        <button class="option-btn" id="opt3"></button>
+      </div>
+      <div class="opponent-status" id="opponentStatus">👤 Opponent answer kar raha hai...</div>
+    </div>
+  </div>
+
+  <!-- ===== RESULT SCREEN ===== -->
+  <div class="screen hidden" id="resultScreen">
+    <div class="container">
+      <div class="result-icon" id="resultIcon">🏆</div>
+      <h1 class="result-title" id="resultTitle">Winner!</h1>
+      <div class="final-scores">
+        <div class="final-score-card" id="p1Card">
+          <div class="final-name" id="finalP1Name">Player 1</div>
+          <div class="final-score" id="finalP1Score">0</div>
+          <div class="final-label">Points</div>
+        </div>
+        <div class="final-vs">VS</div>
+        <div class="final-score-card" id="p2Card">
+          <div class="final-name" id="finalP2Name">Player 2</div>
+          <div class="final-score" id="finalP2Score">0</div>
+          <div class="final-label">Points</div>
+        </div>
+      </div>
+      <div class="result-buttons">
+        <button class="btn-primary" onclick="window.location.href='../Index.html'">🏠 Home</button>
+        <button class="btn-secondary" onclick="window.location.reload()">🔄 Phir Khelo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCRIPTS ========== -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="../firebase.js"></script>
+<script src="../questions.js"></script>
+<script src="../profile/shop-script.js"></script>
+<script src="multiplayer.js"></script>
+</body>
+</html>

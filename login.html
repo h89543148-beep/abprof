@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | AB-PROF</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="../ab-prof-logo.svg" width="80" height="80" alt="logo"/>
+      <h1>AB-PROF</h1>
+      <p>Test Your Knowledge!</p>
+    </div>
+
+    <div class="login-box">
+      <h2>Login</h2>
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Enter username"/>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password"/>
+      </div>
+
+      <button class="btn-login" id="loginBtn">Login</button>
+
+      <p class="signup-link">
+        Account nahi hai?
+        <a href="../signup/signup.html">Signup karo</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyD7RwL8kwQ91P1vcPhXnxFNFIDQsWdUfhE",
+    authDomain: "ad-hoc-d078c.firebaseapp.com",
+    databaseURL: "https://ad-hoc-d078c-default-rtdb.firebaseio.com",
+    projectId: "ad-hoc-d078c",
+    storageBucket: "ad-hoc-d078c.firebasestorage.app",
+    messagingSenderId: "485452494263",
+    appId: "1:485452494263:web:edacb32bc6f1ed597a6432"
+  });
+  </script>
+  <script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | AB-PROF</title>
+  <link rel="stylesheet" href="signup.css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="../ab-prof-logo.svg" width="80" height="80" alt="logo"/>
+      <h1>AB-PROF</h1>
+      <p>Account banao aur khelo!</p>
+    </div>
+
+    <div class="signup-box">
+      <h2>Signup</h2>
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="fullname" placeholder="Apna naam likho"/>
+      </div>
+
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Username banao"/>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Password banao"/>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Password dobara likho"/>
+      </div>
+
+      <button class="btn-signup" id="signupBtn">Account Banao</button>
+
+      <p class="login-link">
+        Pehle se account hai?
+        <a href="../login/login.html">Login karo</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyD7RwL8kwQ91P1vcPhXnxFNFIDQsWdUfhE",
+    authDomain: "ad-hoc-d078c.firebaseapp.com",
+    databaseURL: "https://ad-hoc-d078c-default-rtdb.firebaseio.com",
+    projectId: "ad-hoc-d078c",
+    storageBucket: "ad-hoc-d078c.firebasestorage.app",
+    messagingSenderId: "485452494263",
+    appId: "1:485452494263:web:edacb32bc6f1ed597a6432"
+  });
+  </script>
+  <script src="signup.js"></script>
+</body>
+</html>

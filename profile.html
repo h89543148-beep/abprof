@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | AB-PROF</title>
+  <link rel="stylesheet" href="profile.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="../firebase.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <button class="back-btn" onclick="window.location.href='../Index.html'">← Back</button>
+    <div class="nav-logo">⚡ AB-PROF</div>
+    <button class="shop-btn" onclick="window.location.href='wishshop.html'">🛒 Shop</button>
+  </nav>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="avatar">👤</div>
+      <h2 id="userName">Loading...</h2>
+      <div class="winsh-balance">💎 <span id="winshAmount">0</span> Winsh</div>
+      <div class="badge" id="userBadge">🏆 Player</div>
+      <div class="title" id="userTitle">⚡ Challenger</div>
+    </div>
+    <div class="equipped-section">
+      <h3>✨ Equipped Styles</h3>
+      <div class="equipped-grid">
+        <div class="equip-item" id="borderEquip">Border: <span>None</span></div>
+        <div class="equip-item" id="badgeEquip">Badge: <span>None</span></div>
+        <div class="equip-item" id="themeEquip">Theme: <span>None</span></div>
+        <div class="equip-item" id="titleEquip">Title: <span>None</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  window.onload = function() {
+    var user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user) {
+      window.location.href = '../login/login.html';
+      return;
+    }
+    document.getElementById('userName').innerText = user.username;
+
+    // Use username as key (temporary – because uid is missing)
+    var userId = user.username;  // or user.uid if available
+    var db = firebase.database();
+    db.ref('users/' + userId).once('value').then(snap => {
+      var data = snap.val() || {};
+      document.getElementById('winshAmount').innerText = data.winsh || 0;
+      var equipped = data.equipped || {};
+      var borderNames = { 'green-neon':'Green Neon', 'fire':'Fire Border', 'gold':'Gold Border' };
+      if (equipped.border) document.getElementById('borderEquip').innerHTML = 'Border: <span>' + (borderNames[equipped.border] || equipped.border) + '</span>';
+      if (equipped.badge) document.getElementById('badgeEquip').innerHTML = 'Badge: <span>' + equipped.badge + '</span>';
+    }).catch(err => console.error('Profile load error:', err));
+  };
+</script>
+</body>
+</html>

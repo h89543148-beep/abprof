@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Profile | AB-PROF</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="../firebase.js"></script>
+</head>
+<body>
+    <h2>Fixing Profile...</h2>
+    <p id="status">Loading...</p>
+
+    <script>
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        if (!user) {
+            document.getElementById('status').innerText = '❌ Pehle Login karo!';
+        } else {
+            var db = firebase.database();
+            
+            // Forcefully database mein data daal rahe hain
+            db.ref('users/' + user.uid).update({
+                username: user.username,
+                winsh: 5000,
+                styles: {
+                    borders: ['fire'],
+                    badges: [],
+                    themes: [],
+                    titles: []
+                },
+                equipped: {
+                    border: 'fire',
+                    badge: null,
+                    theme: null,
+                    title: null
+                }
+            }).then(() => {
+                document.getElementById('status').innerText = '✅ Profile Fixed! Ab profile.html pe jao.';
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 2000);
+            }).catch(err => {
+                document.getElementById('status').innerText = '❌ Error: ' + err.message;
+            });
+        }
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="../firebase.js"></script>
+<script src="shop-script.js"></script>
+</body>
+</html>
