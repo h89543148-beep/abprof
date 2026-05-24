@@ -11,7 +11,7 @@
 </head>
 <body>
   <nav class="navbar">
-    <button class="back-btn" onclick="window.location.href='../Index.html'">← Back</button>
+    <button class="back-btn" onclick="window.location.href='Index.html'">← Back</button>
     <div class="nav-logo">⚡ AB-PROF</div>
     <button class="shop-btn" onclick="window.location.href='wishshop.html'">🛒 Shop</button>
   </nav>
@@ -39,7 +39,7 @@
   window.onload = function() {
     var user = JSON.parse(localStorage.getItem('currentUser'));
     if (!user) {
-      window.location.href = '../login/login.html';
+      window.location.href = 'login.html';
       return;
     }
     document.getElementById('userName').innerText = user.username;

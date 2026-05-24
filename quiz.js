@@ -8,7 +8,7 @@ var answered = false;
 window.onload = function() {
   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
-    window.location.href = '../login/login.html';
+    window.location.href = 'login.html';
     return;
   }
 
@@ -101,11 +101,11 @@ document.getElementById('nextBtn').addEventListener('click', function() {
       percentage: percentage,
       category: localStorage.getItem('quizCategory')
     }));
-    window.location.href = '../result/result.html';
+    window.location.href = 'result.html';
   }
 });
 
 document.getElementById('quitBtn').addEventListener('click', function() {
   clearInterval(timer);
-  window.location.href = '../Index.html';
+  window.location.href = 'Index.html';
 });

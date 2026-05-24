@@ -21,7 +21,7 @@ document.getElementById('loginBtn').addEventListener('click', function() {
         document.getElementById('errorMsg').style.display = 'block';
       } else {
         localStorage.setItem('currentUser', JSON.stringify(user));
-        window.location.href = '../Index.html';
+        window.location.href = 'Index.html';
       }
     }
   }).catch(function(err) {

@@ -29,7 +29,7 @@ var shopItems = {
 window.onload = function() {
   var user = JSON.parse(localStorage.getItem('currentUser'));
   if (!user) {
-    window.location.href = '../login/login.html';
+    window.location.href = 'login.html';
     return;
   }
   currentUser = user;

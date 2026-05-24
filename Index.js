@@ -1,7 +1,7 @@
 window.onload = function() {
   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
-    window.location.href = 'login/login.html';
+    window.location.href = 'login.html';
     return;
   }
 
@@ -56,22 +56,22 @@ window.onload = function() {
   // Category buttons
   document.getElementById('cat-general').onclick = function() {
     localStorage.setItem('quizCategory', 'general');
-    window.location.href = 'quiz/quiz.html';
+    window.location.href = 'quiz.html';
   };
   document.getElementById('cat-science').onclick = function() {
     localStorage.setItem('quizCategory', 'science');
-    window.location.href = 'quiz/quiz.html';
+    window.location.href = 'quiz.html';
   };
   document.getElementById('cat-math').onclick = function() {
     localStorage.setItem('quizCategory', 'math');
-    window.location.href = 'quiz/quiz.html';
+    window.location.href = 'quiz.html';
   };
   document.getElementById('cat-custom').onclick = function() {
     localStorage.setItem('quizCategory', 'custom');
-    window.location.href = 'quiz/quiz.html';
+    window.location.href = 'quiz.html';
   };
   document.getElementById('cat-multiplayer').onclick = function() {
-    window.location.href = 'quiz/multiplayer.html';
+    window.location.href = 'multiplayer.html';
   };
 
   // Leaderboard toggle
@@ -81,7 +81,7 @@ window.onload = function() {
 
   // View all button
   document.getElementById('viewAllBtn').onclick = function() {
-    window.location.href = 'leaderboard/leaderboard.html';
+    window.location.href = 'leaderboard.html';
   };
 
   // Theme toggle
@@ -95,6 +95,6 @@ window.onload = function() {
   // Logout
   document.getElementById('logoutBtn').onclick = function() {
     localStorage.removeItem('currentUser');
-    window.location.href = 'login/login.html';
+    window.location.href = 'login.html';
   };
 };
