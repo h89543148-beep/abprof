@@ -107,5 +107,5 @@ document.getElementById('nextBtn').addEventListener('click', function() {
 
 document.getElementById('quitBtn').addEventListener('click', function() {
   clearInterval(timer);
-  window.location.href = 'Index.html';
+  window.location.href = 'index.html';
 });

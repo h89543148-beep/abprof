@@ -28,7 +28,7 @@ window.onload = function () {
   // Result load
   const result = JSON.parse(localStorage.getItem('quizResult'));
   if (!result) {
-    window.location.href = 'Index.html';
+    window.location.href = 'index.html';
     return;
   }
 
