@@ -1,85 +1,82 @@
-document.getElementById('loginBtn').addEventListener('click', function() {
+// ========== LOGIN - FIREBASE AUTH ==========
 
-  var username = document.getElementById('username').value.trim();
-  var password = document.getElementById('password').value.trim();
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMsg = document.getElementById('errorMsg');
 
-  if (!username || !password) {
-    document.getElementById('errorMsg').textContent = 'Sab bharo!';
-    document.getElementById('errorMsg').style.display = 'block';
-    return;
-  }
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-  var db = firebase.database();
-  db.ref('users/' + username).once('value').then(function(snapshot) {
-    if (!snapshot.exists()) {
-      document.getElementById('errorMsg').textContent = 'Username galat hai!';
-      document.getElementById('errorMsg').style.display = 'block';
-    } else {
-      var user = snapshot.val();
-      if (user.password !== password) {
-        document.getElementById('errorMsg').textContent = 'Password galat hai!';
-        document.getElementById('errorMsg').style.display = 'block';
-      } else {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        window.location.href = '../Index.html';
-      }
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+            showError('⚠️ Email aur password dono bharo!');
+            return;
+        }
+
+        // Loading state
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Logging in...';
+
+        try {
+            // Sign in with Firebase Auth
+            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            const uid = userCredential.user.uid;
+
+            // Get user data from database
+            const snapshot = await firebase.database().ref('users/' + uid).once('value');
+            const userData = snapshot.val();
+
+            if (!userData) {
+                throw new Error('User data not found!');
+            }
+
+            // Save to localStorage
+            const currentUser = {
+                uid: uid,
+                username: userData.username,
+                email: email,
+                winsh: userData.winsh || 100,
+                styles: userData.styles || { borders: [], badges: [], themes: [], titles: [] },
+                equipped: userData.equipped || { border: null, badge: null, theme: null, title: null }
+            };
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            console.log('✅ Login Success!', currentUser.username);
+            console.log('UID:', uid);
+            console.log('Winsh:', currentUser.winsh);
+
+            // Redirect to home
+            window.location.href = '../Index.html';
+
+        } catch (error) {
+            console.error('Login error:', error);
+
+            if (error.code === 'auth/user-not-found') {
+                showError('❌ Email not registered!');
+            } else if (error.code === 'auth/wrong-password') {
+                showError('❌ Wrong password!');
+            } else if (error.code === 'auth/invalid-email') {
+                showError('❌ Invalid email!');
+            } else {
+                showError('❌ ' + error.message);
+            }
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Login';
+        }
+    });
+
+    function showError(message) {
+        errorMsg.textContent = message;
+        errorMsg.style.display = 'block';
+        setTimeout(() => {
+            errorMsg.style.display = 'none';
+        }, 3000);
     }
-  }).catch(function(err) {
-    document.getElementById('errorMsg').textContent = 'Error: ' + err.message;
-    document.getElementById('errorMsg').style.display = 'block';
-  });
-
-});// ========== ADD AT TOP ==========
-function debounce(func, wait) {
-    var timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(func, wait);
-    };
-}
-
-var loginAttempts = 0;
-var lastAttemptTime = 0;
-
-function rateLimitLogin() {
-    var now = Date.now();
-    if (now - lastAttemptTime < 5000 && loginAttempts >= 3) {
-        alert('Too many attempts! Wait 5 seconds.');
-        return false;
-    }
-    if (now - lastAttemptTime > 5000) {
-        loginAttempts = 0;
-    }
-    loginAttempts++;
-    lastAttemptTime = now;
-    return true;
-}
-
-// ========== DEBOUNCE YOUR LOGIN FUNCTION ==========
-var loginDebounced = debounce(function() {
-    if (!rateLimitLogin()) return;
-    
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    
-    // Your existing login code here
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function(userCredential) {
-            // existing success code
-        })
-        .catch(function(error) {
-            // existing error code
-        });
-}, 1000);
-
-// Change onclick
-document.getElementById('loginBtn').onclick = loginDebounced;
-firebase.auth().signInWithEmailAndPassword(email, password)
-  .then(userCredential => {
-    var user = {
-      username: username,   // your existing field
-      email: email,
-      uid: userCredential.user.uid   // ← ADD THIS
-    };
-    localStorage.setItem('currentUser', JSON.stringify(user));
-  });
+});
