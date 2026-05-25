@@ -1,154 +1,122 @@
-/* ===== RESET ===== */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ===== BODY ===== */
 body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-  padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 30px;
+    width: 380px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.5s ease;
 }
 
-/* ===== LOGO ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .logo {
-  text-align: center;
-  color: white;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #00ff88;
+    margin-bottom: 20px;
 }
 
-.logo h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
+h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 24px;
 }
 
-.logo p {
-  font-size: 0.9rem;
-  color: #a0a0b0;
-  margin-top: 5px;
+input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-/* ===== LOGIN BOX ===== */
-.login-box {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 35px 30px;
-  width: 100%;
+input:focus {
+    outline: none;
+    background: white;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
-.login-box h2 {
-  color: white;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a2e;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-/* ===== ERROR MSG ===== */
-.error-msg {
-  background: rgba(255, 80, 80, 0.15);
-  color: #ff6b6b;
-  border: 1px solid #ff6b6b;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 0.85rem;
-  margin-bottom: 15px;
-  display: none;
-  text-align: center;
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
 }
 
-.error-msg.show {
-  display: block;
+button:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
 }
 
-/* ===== INPUT GROUP ===== */
-.input-group {
-  margin-bottom: 18px;
+.error-message {
+    background: rgba(255, 68, 68, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
 }
 
-.input-group label {
-  display: block;
-  color: #a0a0b0;
-  font-size: 0.85rem;
-  margin-bottom: 7px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 12px 15px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  color: white;
-  font-size: 1rem;
-  outline: none;
-  transition: border 0.3s;
-}
-
-.input-group input::placeholder {
-  color: #606070;
-}
-
-.input-group input:focus {
-  border-color: #e94560;
-}
-
-/* ===== LOGIN BUTTON ===== */
-.btn-login {
-  width: 100%;
-  padding: 13px;
-  background: linear-gradient(135deg, #e94560, #0f3460);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: opacity 0.3s, transform 0.2s;
-  margin-top: 5px;
-}
-
-.btn-login:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
-}
-
-.btn-login:active {
-  transform: scale(0.98);
-}
-
-/* ===== SIGNUP LINK ===== */
 .signup-link {
-  text-align: center;
-  color: #a0a0b0;
-  font-size: 0.88rem;
-  margin-top: 18px;
+    text-align: center;
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
 }
 
 .signup-link a {
-  color: #e94560;
-  text-decoration: none;
-  font-weight: 600;
+    color: #00ff88;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .signup-link a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
